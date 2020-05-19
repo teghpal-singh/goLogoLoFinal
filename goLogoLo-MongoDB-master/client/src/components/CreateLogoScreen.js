@@ -87,10 +87,12 @@ class CreateLogoScreen extends Component {
         this.setState({margin: parseInt(e.target.value)})
     }
 
+    //height
     updateHeight = (e) => {
         this.setState({height: parseInt(e.target.value)})
     }
 
+    //width
     updateWidth = (e) => {
         this.setState({width: parseInt(e.target.value)})
     }

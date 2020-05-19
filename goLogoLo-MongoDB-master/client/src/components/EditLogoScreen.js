@@ -199,7 +199,7 @@ class EditLogoScreen extends Component {
                                                     <div className="form-group row">
                                                             <label htmlFor="height" class="col-3 col-form-label" style={{fontSize: "12pt", fontFamily: "Arial"}}>Height:</label>
                                                             <div className="col-9">
-                                                                <input type="range" className="form-control form-control-lg" name="height" min="0" max="200" ref={node => {
+                                                                <input type="range" className="form-control form-control-lg" name="height" min="0" max="400" ref={node => {
                                                                     height = node;
                                                                 }} placeholder="Height" defaultValue={data.logo.height} style={{width: "100%"}} onChange={this.updateHeight.bind(this)} required/>
                                                              </div>
@@ -207,7 +207,7 @@ class EditLogoScreen extends Component {
                                                     <div className="form-group row">
                                                             <label htmlFor="width" class="col-3 col-form-label" style={{fontSize: "12pt", fontFamily: "Arial"}}>Width:</label>
                                                             <div className="col-9">
-                                                                <input type="range" className="form-control form-control-lg" name="width" min="0" max="200" ref={node => {
+                                                                <input type="range" className="form-control form-control-lg" name="width" min="0" max="400" ref={node => {
                                                                     width = node;
                                                                 }} placeholder="Width" defaultValue={data.logo.width} style={{width: ""}} onChange={this.updateWidth.bind(this)} required/>
                                                             </div>
