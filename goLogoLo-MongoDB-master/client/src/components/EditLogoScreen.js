@@ -18,6 +18,7 @@ const GET_LOGO = gql`
             margin
             height
             width
+            imageURL
         }
     }
 `;
@@ -35,7 +36,8 @@ const UPDATE_LOGO = gql`
         $padding: Int!,
         $margin: Int!,
         $height: Int!,
-        $width: Int!) {
+        $width: Int!,
+        $imageURL: String!) {
             updateLogo(
                 id: $id,
                 text: $text,
@@ -48,7 +50,8 @@ const UPDATE_LOGO = gql`
                 padding: $padding,
                 margin: $margin,
                 height: $height,
-                width: $width) {
+                width: $width,
+                imageURL: $imageURL) {
                     lastUpdate
                 }
         }
@@ -71,6 +74,7 @@ class EditLogoScreen extends Component {
         query: true,
         height: "25pt",
         width: "25pt",
+        imageURL: ""
     }
 
     updateText = (e) => {
@@ -122,8 +126,14 @@ class EditLogoScreen extends Component {
         this.setState({width: parseInt(e.target.value)})
     }
 
+    displayImageURL = (e) => {
+        let imageInput = document.getElementById("image-input");
+        let image = document.getElementById("imageURLIMG");
+        if (imageInput.value) image.src = imageInput.value;
+    }
+
     render() {
-        let text, color, fontSize, backgroundColor, borderWidth, borderColor, borderRadius, padding, margin, height, width;
+        let text, color, fontSize, backgroundColor, borderWidth, borderColor, borderRadius, padding, margin, height, width, imageURL;
 
         return (
             <Query query={GET_LOGO} variables={{ logoId: this.props.match.params.id }}>
@@ -144,6 +154,7 @@ class EditLogoScreen extends Component {
                         this.setState({query: false})
                         this.setState({height: data.logo.height})
                         this.setState({width: data.logo.width})
+                        this.setState({imageURL: data.logo.imageURL})
                     }
                     const styles = {
                         container: {
@@ -159,6 +170,7 @@ class EditLogoScreen extends Component {
                             margin: this.state.margin,
                             height: this.state.height,
                             width: this.state.width,
+                            imageURL: this.state.imageURL,
                             position: "absolute",
                             textAlign: "center",
                             overflow: "auto",
@@ -182,7 +194,7 @@ class EditLogoScreen extends Component {
                                         <div className="panel-body">                                            
                                             <form onSubmit={e => {
                                                 e.preventDefault();
-                                                updateLogo({ variables: { id: data.logo._id, text: text.value, color: color.value, fontSize: parseInt(fontSize.value), backgroundColor: backgroundColor.value, borderWidth: parseInt(borderWidth.value), borderColor: borderColor.value, borderRadius: parseInt(borderRadius.value), padding: parseInt(padding.value), margin: parseInt(margin.value), height: parseInt(height.value), width: parseInt(width.value) } });
+                                                updateLogo({ variables: { id: data.logo._id, text: text.value, color: color.value, fontSize: parseInt(fontSize.value), backgroundColor: backgroundColor.value, borderWidth: parseInt(borderWidth.value), borderColor: borderColor.value, borderRadius: parseInt(borderRadius.value), padding: parseInt(padding.value), margin: parseInt(margin.value), height: parseInt(height.value), width: parseInt(width.value), imageURL: imageURL.value } });
                                                 text.value = "";
                                                 color.value = "";
                                                 fontSize.value = "";
@@ -194,6 +206,7 @@ class EditLogoScreen extends Component {
                                                 margin.value = "";
                                                 height.value = "";
                                                 width.value = "";
+                                                imageURL.value = "";
                                             }}>
                                                 <form class="form-horizontal">
                                                     <div className="form-group row">
@@ -218,6 +231,15 @@ class EditLogoScreen extends Component {
                                                                 <input type="text" className="form-control form-control-lg" name="text" ref={node => {
                                                                     text = node;
                                                                 }} placeholder="Text" defaultValue={data.logo.text} style={{width: "100%"}} onChange={this.updateText.bind(this)}/>
+                                                            </div>
+                                                    </div>
+                                                    <div className="form-group row">
+                                                            <label htmlFor="imageURL" class="col-3 col-form-label" style={{fontSize: "12pt", fontFamily: "Arial"}}>ImageURL:</label>
+                                                            <div className="col-9" style={{textAlign: "center"}}>
+                                                                <input type="text" id="image-input" className="form-control form-control-lg" name="imageURL" ref={node => {
+                                                                    imageURL = node;
+                                                                }} placeholder="Text" defaultValue={data.logo.imageInput} style={{width: "100%"}}  required/>
+                                                                <button type="button" id="buttonImageURL" className="btn btn-primary btn-lg" onClick= {this.displayImageURL.bind(this)}>Confirm</button>
                                                             </div>
                                                     </div>
                                                     <div className="form-group row">
@@ -294,7 +316,7 @@ class EditLogoScreen extends Component {
                                         </div>
                                     </div>
                                     <div className="col s8" style = {{overflow : "auto", float: "left", display: "contents"}}>
-                                        <div style={ styles.container }>{this.state.text.replace(/ /g, '\xa0')}</div>
+                                        <div style={ styles.container }>{this.state.text.replace(/ /g, '\xa0')}<img src={data.logo.imageURL} id="imageURLIMG" alt=""></img></div>
                                     </div>
                                 </div>
                                 </div>

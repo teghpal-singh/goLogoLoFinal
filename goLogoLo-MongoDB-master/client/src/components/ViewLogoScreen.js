@@ -20,6 +20,7 @@ const GET_LOGO = gql`
             margin
             height
             width
+            imageURL
         }
     }
 `;
@@ -59,6 +60,7 @@ class ViewLogoScreen extends Component {
                             margin: data.logo.margin,
                             height: data.logo.height,
                             width: data.logo.width,
+                            imageURL: data.logo.imageURL,
                             position: "absolute",
                             textAlign: "center",
                             overflow: "auto",
@@ -84,6 +86,8 @@ class ViewLogoScreen extends Component {
                                         <dd>{data.logo.width}</dd>
                                         <dt>Text:</dt>
                                         <dd>{data.logo.text.replace(/ /g, '\xa0')}</dd>
+                                        <dt>ImageURL:</dt>
+                                        <dd style = {{overflowWrap : "anywhere"}}>{data.logo.imageURL}</dd>
                                         <dt>Color:</dt>
                                         <dd>{data.logo.color}</dd>
                                         <dt>Font Size:</dt>
@@ -129,7 +133,7 @@ class ViewLogoScreen extends Component {
                                 </div>
                             </div>
                             <div className="col s8" style = {{overflow : "auto", float: "left", display: "contents"}}>
-                                <div id="exportDiv" style={ styles.container }>{data.logo.text.replace(/ /g, '\xa0')}</div>
+                                <div id="exportDiv" style={ styles.container }>{data.logo.text.replace(/ /g, '\xa0')}<img src={data.logo.imageURL} id="imageURLIMG" alt=""></img></div>
                             </div>
                             <div className="col-91" style = {{float: "right"}}>
                                 <canvas id="cnvs" class="canvas__canvas" style = {{position : "absolute", height : data.logo.height, width : data.logo.width}}></canvas>
