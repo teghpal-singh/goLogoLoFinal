@@ -16,7 +16,7 @@ const ADD_LOGO = gql`
         $margin: Int!,
         $height: Int!,
         $width: Int!,
-        $imageURL: String!) {
+        $imageURLList: String!) {
         addLogo(
             text: $text,
             color: $color,
@@ -29,7 +29,7 @@ const ADD_LOGO = gql`
             margin: $margin,
             height: $height,
             width: $width,
-            imageURL: $imageURL) {
+            imageURLList: $imageURLList) {
             _id
         }
     }
@@ -51,7 +51,7 @@ class CreateLogoScreen extends Component {
         margin: "1pt",
         height: "30pt",
         width: "80pt",
-        imageURL: ""
+        imageURLList: ""
     }
 
     updateText = (e) => {
@@ -99,13 +99,30 @@ class CreateLogoScreen extends Component {
     }
 
     displayImageURL = (e) => {
-        let imageInput = document.getElementById("image-input");
-        let image = document.getElementById("imageURLIMG");
-        if (imageInput.value) image.src = imageInput.value;
+        let imageInput = document.getElementById("image-input").value;
+        this.setState({imageURLList: this.state.imageURLList + imageInput + " "}, function() {
+            console.log(this.state.imageURLList)
+        })
+        //console.log(this.state.imageURL);
+        console.log(this.state.imageURLList);
+        //var URLArray = this.state.imageURLList.split(" ");
+        //console.log(URLArray);
+        var container = document.getElementById('createLogoDiv');
+
+        //for (var i = 0, j = URLArray.length-1; i < j; i++) {
+            var img = document.createElement('img');
+            img.src = imageInput; // img[i] refers to the current URL.
+            img.style.width = "50px";
+            img.style.height = "50px";
+            container.appendChild(img);
+        //}
+       // let imageInput = document.getElementById("image-input");
+        //let image = document.getElementById("imageURLIMG");
+        //if (imageInput.value) image.src = imageInput.value;
     }
 
     render() {
-        let text, color, fontSize, backgroundColor, borderWidth, borderColor, borderRadius, padding, margin, height, width, imageURL;
+        let text, color, fontSize, backgroundColor, borderWidth, borderColor, borderRadius, padding, margin, height, width, imageURLList;
         
         const styles = {
             container: {
@@ -121,7 +138,7 @@ class CreateLogoScreen extends Component {
                 margin: this.state.margin,
                 height: this.state.height,
                 width: this.state.width,
-                imageURL: this.state.imageURL,
+                imageURLList: this.state.imageURLList,
                 position: "absolute",
                 textAlign: "center",
                 overflow: "auto",
@@ -148,7 +165,7 @@ class CreateLogoScreen extends Component {
                             <div className="panel-body">
                                 <form onSubmit={e => {
                                     e.preventDefault();
-                                    addLogo({ variables: { text: text.value, color: color.value, fontSize: parseInt(fontSize.value), backgroundColor: backgroundColor.value, borderWidth: parseInt(borderWidth.value), borderColor: borderColor.value, borderRadius: parseInt(borderRadius.value), padding: parseInt(padding.value), margin: parseInt(margin.value), height: parseInt(height.value), width: parseInt(width.value), imageURL: imageURL.value } });
+                                    addLogo({ variables: { text: text.value, color: color.value, fontSize: parseInt(fontSize.value), backgroundColor: backgroundColor.value, borderWidth: parseInt(borderWidth.value), borderColor: borderColor.value, borderRadius: parseInt(borderRadius.value), padding: parseInt(padding.value), margin: parseInt(margin.value), height: parseInt(height.value), width: parseInt(width.value), imageURLList: this.state.imageURLList } });
                                     text.value = "";
                                     color.value = "";
                                     fontSize.value = "";
@@ -160,7 +177,6 @@ class CreateLogoScreen extends Component {
                                     margin.value = "";
                                     height.value = "";
                                     width.value = "";
-                                    imageURL.value = "";
                                 }}>
                                     <form class="form-horizontal">
                                     <div className="form-group row">
@@ -191,7 +207,7 @@ class CreateLogoScreen extends Component {
                                             <label htmlFor="imageURL" class="col-3 col-form-label" style={{fontSize: "12pt", fontFamily: "Arial"}}>ImageURL:</label>
                                             <div className="col-9" style={{textAlign: "center"}}>
                                                 <input type="text" id="image-input" className="form-control form-control-lg" name="imageURL" ref={node => {
-                                                    imageURL = node;
+                                                    imageURLList = node;
                                                 }} placeholder="Text" defaultValue="Image URL" style={{width: "100%"}}  required/>
                                                 <button type="button" id="buttonImageURL" className="btn btn-primary btn-lg" onClick= {this.displayImageURL.bind(this)}>Confirm</button>
                                             </div>
@@ -271,7 +287,7 @@ class CreateLogoScreen extends Component {
                         </div>
                     </div>
                     <div className="col s8" style = {{overflow : "auto", float: "left", display: "contents"}}>
-                                <div style={ styles.container }>{this.state.text.replace(/ /g, '\xa0')}<img src="" id="imageURLIMG" alt=""></img></div>
+                                <div id="createLogoDiv" style={ styles.container }>{this.state.text.replace(/ /g, '\xa0')}<img src="" id="imageURLIMG" alt=""></img></div>
                     </div>
                     </div>
                 )}

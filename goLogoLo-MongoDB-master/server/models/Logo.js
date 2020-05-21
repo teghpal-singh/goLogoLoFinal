@@ -14,7 +14,7 @@ var LogoSchema = new mongoose.Schema({
   margin: { type: Number, min: 0, max: 100 },
   height: { type: Number, min: 0, max: 400 },
   width: { type: Number, min: 0, max: 400 },
-  imageURL: String
+  imageURLList: String
 });
 
 module.exports = mongoose.model('Logo', LogoSchema);

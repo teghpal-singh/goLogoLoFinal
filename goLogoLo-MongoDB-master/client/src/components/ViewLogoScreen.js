@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
+//import html2canvas from 'html2canvas';
+//import Canvas2Image from '../canvas2image';
 
 const GET_LOGO = gql`
     query logo($logoId: String) {
@@ -20,7 +22,7 @@ const GET_LOGO = gql`
             margin
             height
             width
-            imageURL
+            imageURLList
         }
     }
 `;
@@ -38,6 +40,8 @@ class ViewLogoScreen extends Component {
     exportToPNG = (e) => {
         console.log("EXPORT");
     }
+
+    
 
     render() {
         return (
@@ -60,7 +64,7 @@ class ViewLogoScreen extends Component {
                             margin: data.logo.margin,
                             height: data.logo.height,
                             width: data.logo.width,
-                            imageURL: data.logo.imageURL,
+                            imageURLList: data.logo.imageURLList,
                             position: "absolute",
                             textAlign: "center",
                             overflow: "auto",
@@ -68,7 +72,7 @@ class ViewLogoScreen extends Component {
                             display: "inline-block",
                         }
                     }
-
+                    
                     return (
                         <div className="customizeContainer" style={{float: "left", display: "inline-block", width: "274.84pt"}}>
                             <div className="panel panel-default" style={{float: "left"}}>
@@ -86,8 +90,8 @@ class ViewLogoScreen extends Component {
                                         <dd>{data.logo.width}</dd>
                                         <dt>Text:</dt>
                                         <dd>{data.logo.text.replace(/ /g, '\xa0')}</dd>
-                                        <dt>ImageURL:</dt>
-                                        <dd style = {{overflowWrap : "anywhere"}}>{data.logo.imageURL}</dd>
+                                        <dt>ImageURLS:</dt>
+                                        <dd style = {{overflowWrap : "anywhere"}}>{data.logo.imageURLList}</dd>
                                         <dt>Color:</dt>
                                         <dd>{data.logo.color}</dd>
                                         <dt>Font Size:</dt>
@@ -127,7 +131,7 @@ class ViewLogoScreen extends Component {
                                         </Mutation>
                                         </div>
                                         <div style = {{display : "inline-block"}}>
-                                            <button id="buttonExport" className="btn btn-primary btn-lg" onClick= {this.exportToPNG.bind(this)} download="my-file-name.png">Export</button>
+                                            <button id="buttonExport" className="btn btn-primary btn-lg" onClick= {this.exportToPNG.bind(this)} download="my-file-name.png">Export</button>&nbsp;
                                         </div>
                                     </div>
                                 </div>
