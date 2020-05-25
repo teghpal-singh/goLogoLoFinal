@@ -42,17 +42,6 @@ class ViewLogoScreen extends Component {
     }
 
     render() {
-        //var URLArray = this.state.imageURLList.split(" ");
-        //console.log(URLArray);
-        var container = document.getElementById('createLogoDiv');
-
-        //for (var i = 0, j = URLArray.length-1; i < j; i++) {
-            var img = document.createElement('img');
-            img.src = imageInput; // img[i] refers to the current URL.
-            img.style.width = "50px";
-            img.style.height = "50px";
-            container.appendChild(img);
-        //}
         return (
             <Query pollInterval={500} query={GET_LOGO} variables={{ logoId: this.props.match.params.id }}>
                 {({ loading, error, data }) => {
