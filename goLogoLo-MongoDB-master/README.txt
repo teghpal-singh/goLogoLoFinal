@@ -14,6 +14,9 @@ mutation
         borderRadius
         padding
         margin
+	height
+	width
+	ImageURLList
     }
 }
 
@@ -32,6 +35,9 @@ mutation
         borderRadius
         padding
         margin
+	height
+	width
+	imageURLList
     }
 }
 
@@ -50,6 +56,9 @@ mutation
         borderRadius
         padding
         margin
+	height
+	width
+	imageURLList
     }
 }
 
@@ -65,7 +74,10 @@ mutation
         borderColor: "INSERT HEX COLOR CODE HERE",
         borderRadius: INSERT NUMBER HERE,
         padding: INSERT NUMBER HERE,
-       margin: INSERT NUMBER HERE,
+        margin: INSERT NUMBER HERE,
+	height: INSERT NUMBER HERE,
+	width: INSERT NUMBER HERE,
+	imageURLList: INSERT NUMBER HERE,
         ) {
                 _id
               text
@@ -78,6 +90,9 @@ mutation
               borderRadius
               padding
               margin
+	      height
+	      width
+	      imageURLList
           }
 }
 
@@ -94,7 +109,10 @@ mutation
         borderColor: "INSERT HEX COLOR CODE HERE",
         borderRadius: INSERT NUMBER HERE,
         padding: INSERT NUMBER HERE,
-       margin: INSERT NUMBER HERE,
+        margin: INSERT NUMBER HERE,
+	height: INSERT NUMBER HERE,
+	width: INSERT NUMBER HERE,
+	imageURLList: INSERT NUMBER HERE,
   ) {
          _id
          text
@@ -107,5 +125,8 @@ mutation
          borderRadius
          padding
          margin 
+	 height
+	 width
+	 imageURLList
     }
 }
